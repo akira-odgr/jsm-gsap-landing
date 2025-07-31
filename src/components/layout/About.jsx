@@ -3,37 +3,42 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
 
+// SplitText プラグインを登録（必要な場合）
+gsap.registerPlugin(SplitText);
+
 export const About = () => {
     useGSAP(() => {
-        const titleSplit = SplitText.create("#about h2", {
-            top: "words",
-        });
+        document.fonts.ready.then(() => {
+            const titleSplit = SplitText.create("#about h2", {
+                type: "words", // 修正: "top" → "type"
+            });
 
-        const scrollTimeline = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#about",
-                start: "top center",
-            },
-        });
+            const scrollTimeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top center",
+                },
+            });
 
-        scrollTimeline
-            .from(titleSplit.words, {
-                opacity: 0,
-                duration: 1,
-                yPercent: 100,
-                ease: "expo.out",
-                stagger: 0.02,
-            })
-            .from(
-                ".top-grid div, .bottom-grid div",
-                {
+            scrollTimeline
+                .from(titleSplit.words, {
                     opacity: 0,
                     duration: 1,
-                    ease: "power1.inOut",
-                    stagger: 0.04,
-                },
-                "-=0.5"
-            );
+                    yPercent: 100,
+                    ease: "expo.out",
+                    stagger: 0.02,
+                })
+                .from(
+                    ".top-grid div, .bottom-grid div",
+                    {
+                        opacity: 0,
+                        duration: 1,
+                        ease: "power1.inOut",
+                        stagger: 0.04,
+                    },
+                    "-=0.5"
+                );
+        });
     }, []);
 
     return (

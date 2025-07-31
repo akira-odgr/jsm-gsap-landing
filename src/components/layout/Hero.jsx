@@ -3,24 +3,18 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { useMediaQuery } from "react-responsive";
+import { cn } from "@/utils/cn";
 
 export const Hero = () => {
-    const titleRef = useRef(null);
-    const subtitleRef1 = useRef(null);
-    const subtitleRef2 = useRef(null);
-
     const videoRef = useRef();
     const isMobile = useMediaQuery({ maxWidth: 767 });
 
     useGSAP(() => {
         document.fonts.ready.then(() => {
-            const heroSplit = new SplitText(titleRef.current, {
+            const heroSplit = new SplitText(".title", {
                 type: "chars, words",
             });
-            const paragraphSplit1 = new SplitText(subtitleRef1.current, {
-                type: "lines",
-            });
-            const paragraphSplit2 = new SplitText(subtitleRef2.current, {
+            const paragraphSplit = new SplitText(".subtitle", {
                 type: "lines",
             });
 
@@ -32,24 +26,16 @@ export const Hero = () => {
                 yPercent: 100,
                 duration: 1.8,
                 ease: "expo.out",
-                stagger: 0.05,
+                stagger: 0.06,
             });
 
-            gsap.from(paragraphSplit1.lines, {
+            gsap.from(paragraphSplit.lines, {
                 opacity: 0,
                 yPercent: 100,
                 duration: 1.8,
                 ease: "expo.out",
                 stagger: 0.06,
                 delay: 1,
-            });
-            gsap.from(paragraphSplit2.lines, {
-                opacity: 0,
-                yPercent: 100,
-                duration: 1.8,
-                ease: "expo.out",
-                stagger: 0.06,
-                delay: 1.2,
             });
         });
 
@@ -62,7 +48,8 @@ export const Hero = () => {
             },
         })
             .to(".right-leaf", { y: 200 }, 0)
-            .to(".left-leaf", { y: -200 }, 0);
+            .to(".left-leaf", { y: -200 }, 0)
+            .to(".arrow", { y: 100 }, 0);
 
         const startValue = isMobile ? "top 50%" : "center 60%";
         const endValue = isMobile ? "120% top" : "bottom top";
@@ -86,8 +73,8 @@ export const Hero = () => {
 
     return (
         <>
-            <section id="hero">
-                <h1 ref={titleRef}>MOJITO</h1>
+            <section id="hero" className="noisy">
+                <h1 className="title">MOJITO</h1>
                 <img
                     src="/images/hero-left-leaf.png"
                     alt="left-leaf"
@@ -98,16 +85,22 @@ export const Hero = () => {
                     alt="right-leaf"
                     className="right-leaf"
                 />
+
                 <div className="body">
+                    <img
+                        src="/images/arrow.png"
+                        alt="arrow"
+                        className="arrow"
+                    />
                     <div className="content">
-                        <div className="space-y-5 hidden md:block">
+                        <div className={cn("space-y-5 hidden", "md:block")}>
                             <p>Cool. Crisp. Classic.</p>
-                            <p ref={subtitleRef1}>
+                            <p className="subtitle">
                                 Sip the Spirit <br /> of Summer
                             </p>
                         </div>
                         <div className="view-cocktails">
-                            <p ref={subtitleRef2}>
+                            <p className="subtitle">
                                 Every cocktail on our menu is a blend of premium
                                 ingredients, creative flair, and timeless
                                 recipes - designed to delight your senses.

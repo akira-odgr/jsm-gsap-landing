@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { useMediaQuery } from "react-responsive";
 
 export const Art = () => {
-    const isMobile = useMediaQuery({ maxWidth: 767 });
+    const isMobile = useMediaQuery({ maxWidth: 767 }); // ✅ Hookはトップで
 
     useGSAP(() => {
         const start = isMobile ? "top 20%" : "top top";
@@ -24,7 +24,7 @@ export const Art = () => {
             .to(".will-fade", {
                 opacity: 0,
                 stagger: 0.2,
-                ease: "power1.isOut",
+                ease: "power1.inOut",
             })
             .to(".masked-img", {
                 scale: 1.3,
@@ -38,7 +38,7 @@ export const Art = () => {
                 duration: 1,
                 ease: "power1.inOut",
             });
-    }, []);
+    });
 
     return (
         <section id="art">
@@ -83,7 +83,10 @@ export const Art = () => {
 
                 <div className="masked-container">
                     <h2 className="will-fade">Sip-Worthy Perfection</h2>
-                    <div id="masked-content">
+                    <div
+                        id="masked-content"
+                        className="opacity-0 transition-opacity duration-500"
+                    >
                         <h3>Made with Craft, Poured with Passion</h3>
                         <p>
                             This isn't just a drink. It's a carefully crafted

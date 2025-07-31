@@ -5,17 +5,19 @@ import { Hero } from "@/components/layout/Hero";
 import { Cocktails } from "@/components/layout/Cocktails";
 import { About } from "@/components/layout/About";
 import { Art } from "@/components/layout/Art";
+import { Menu } from "@/components/layout/Menu";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export const App = () => {
     return (
-        <main>
+        <main className="overflow-y-hidden">
             <Navbar />
             <Hero />
             <Cocktails />
             <About />
             <Art />
+            <Menu />
         </main>
     );
 };
