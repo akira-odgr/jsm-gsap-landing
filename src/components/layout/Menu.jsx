@@ -25,6 +25,8 @@ export const Menu = () => {
     };
 
     const currentCocktail = getCocktailAt(0);
+    const prevCocktail = getCocktailAt(-1);
+    const nextCocktail = getCocktailAt(1);
 
     return (
         <section id="menu" aria-labelledby="menu-heading">
@@ -68,13 +70,13 @@ export const Menu = () => {
                         goToSlide={() => goToSlide(currentIndex - 1)}
                         arrow={arrowRight}
                     >
-                        prev
+                        {prevCocktail.name}
                     </MenuArrowButton>
                     <MenuArrowButton
                         goToSlide={() => goToSlide(currentIndex + 1)}
                         arrow={arrowLeft}
                     >
-                        next
+                        {nextCocktail.name}
                     </MenuArrowButton>
                 </div>
 
